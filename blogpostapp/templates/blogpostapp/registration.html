@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styler.css' %}">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+          <form action="{% url 'registration' %}" method="POST" class="register-form" >
+            {% csrf_token %}
+            <input type="text" placeholder="username" name="username"/>
+            <input type="email" placeholder="email address" name="email"/>
+            <input type="password" placeholder="password" name="password1"/>
+            <input type="password" placeholder="password" name="password2"/>
+            <button type="submit">Create</button>
+            {% for message in messages %}
+                <h3>{{message}}</h3>
+            {% endfor %}
+            <p class="message">Already registered? <a href="{% url 'login' %}">Sign In</a></p>
+          </form>
+        </div>
+      </div>
+</body>
+<script>
+   $('.message a').click(function(){
+    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+ });
+</script>
+</html>

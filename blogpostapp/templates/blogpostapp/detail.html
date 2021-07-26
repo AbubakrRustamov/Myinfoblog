@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infoblock</title>
+    <link rel="stylesheet" href="{% static 'css/stylecom.css' %}">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Infoblog</div>
+            <div class="pages">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'home' %}">Log out</a>
+                <a class="btn" href="{% url 'login' %}">Log in</a>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="card">
+            <div class="about">
+                <h3>{{post.title}}</h3>
+                <p>{{post.body}}</p>
+                
+            </div>
+            <a href="{% url 'category' post.category.slug %}" class="category">{{post.category.title}} | </a> 
+            <a class="date">{{post.date_added}} | {{post.author}}</a>
+            <a class="btn-e" href="{% url 'post_edit' post.slug %}">Edit</a>
+            <a class="btn-d" href="{% url 'post_delete' post.slug %}">Delete</a> 
+            <hr>
+                <div class="ic">
+                    <i class="far fa-question-circle fa-2x"></i>
+                    <a href="#addcom" style="color:rgb(67, 127, 196);" ><i class="far fa-comment fa-2x"></i></a>
+                    <i class="far fa-heart fa-2x"></i>
+                </div>
+        </div>
+            <form method='POST' action="." >
+                {% csrf_token %}
+                <div class="comment">
+                    <h1>Comment</h1>
+                    <input id='#addcom' type="text" class="name" placeholder="Name" name="name">
+                    <input id='#addcom' type="text" class="addcomment" placeholder="Add a comment... " name="body">
+                    <button class="btnc" type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="c">
+                <h1>Comments</h1>
+            </div>
+
+            {% for comment in post.comments.all %}
+                <div class="comments">
+                    <div class="basic_com">
+                        
+                        <h2>{{comment.name}}</h2>
+                    </div>
+                    <div class="additional_com">
+                        <p>
+                            {{comment.body}}
+                        </p>
+                        <a class="date">{{comment.date_added}}</a>
+                        <br><br>
+                    </div>
+                </div>  
+            {% endfor %} 
+                
+    </section>
+    <footer>
+        <div class="fott1">
+            <div class="ic2">
+                <i class="fab fa-youtube fa-2x"></i>
+                <i class="fab fa-facebook fa-2x"></i>
+                <i class="fab fa-linkedin fa-2x"></i>
+                <i class="fab fa-github fa-2x"></i>
+            </div>
+            <div class="contact">
+                <h2>Contact us</h2>
+                <input type="email" name="email" class="email" placeholder="Email">
+                <br>
+                <input type="text" name="messages" class="messages" placeholder="Send a question that interests you">
+                <button class="btn2">Send</button>
+            </div>
+
+        </div>
+        <div class="fott2">
+            <a>Preparied by: IamRAcoder</a>
+        </div>
+    </footer>
+    
+</body>
+
+<script src="https://kit.fontawesome.com/c8e4d183c2.js"
+    crossorigin="anonymous"></script>
+</html>
