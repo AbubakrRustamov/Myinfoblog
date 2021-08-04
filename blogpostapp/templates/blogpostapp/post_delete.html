@@ -14,7 +14,8 @@
         <nav>
             <div class="logo">Infoblog</div>
             <div class="pages">
-                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'home' %}"><i class="fas fa-home"></i>Home</a>
+                <a href="{% url 'create_post' %}" style="text-decoration: none; color:#fff;"><i class="fas fa-plus-circle"></i> New post</a>
                 <a href="{% url 'home' %}">Log out</a>
                 <a class="btn" href="{% url 'login' %}">Log in</a>
             </div>

@@ -1,18 +1,49 @@
+from django.core import paginator
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.template.defaultfilters import title
 from .models import *
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .forms import PostForm, PostUpdateForm, CommentForm, ContactForm
+from .forms import PostForm, CommentForm, ContactForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 # Create your views here.
 
+def search(request):
+    context = {}
+    post = Post.objects.all()
+    if request.method == 'GET':
+        query = request.GET.get('search')
+        queryset = post.filter(Q(title__icontains=query))
+        total = queryset.count()
+        context.update({
+            'total': total,
+            'query': query,
+            'posts': queryset,
+        })
 
+        return render(request, 'blogpostapp/search.html', context)
 
 def home(request):
     category=Category.objects.all()
     post=Post.objects.all().order_by('-id') 
-  
+
+    
+    page = request.GET.get("page")
+    paginator = Paginator(post, 3)
+
+    try:
+        post = paginator.page(page)
+    except PageNotAnInteger:
+        post = paginator.page(1)
+    except EmptyPage:
+        post = paginator.page(paginator.num_pages)        
+
     return render(request, 'blogpostapp/home.html', {'category': category, 'posts':post})
+
+
 @login_required
 def create_post(request):
     category=Category.objects.all()
@@ -44,7 +75,7 @@ def detail(request, slug):
             form.instance.post = post
             form.save()
 
-            return redirect('detail', slug=post.slug)
+            return redirect('detail', slug=slug)
     else:
         form = CommentForm()    
     context = {
@@ -57,15 +88,16 @@ def detail(request, slug):
 def post_edit(request, slug):
     post = Post.objects.get(slug=slug)
     if request.method == 'POST':
-        form = PostUpdateForm(request.POST, instance=post)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
-            return redirect('detail')
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('detail', slug=slug )
     else:
-        form = PostUpdateForm(instance=post)    
+        form = PostForm(instance=post)    
 
     context = {
-        'post':post,
         'form':form,
     }
     return render(request, 'blogpostapp/post_edit.html', context)

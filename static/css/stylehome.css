@@ -14,10 +14,45 @@ header nav{
     align-items: center;
 }
 .logo{
+    margin-top: -5px;
     margin-left: 70px;
     font-size: 28px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}   
+} 
+.search{
+    position: absolute;
+    font-family: sans-serif;
+    margin-left: 110px;
+    width: 170px;
+    height:30px;
+    border:none;
+    border-radius: 4px;
+} 
+/* ------ for search.html-------------------------------------------------- */
+.search_found{
+    position: relative;
+    border:2px solid rgb(67, 127, 196);
+    text-align: center;
+    width: 400px;
+    height:120px;
+    margin-top:20px;
+    margin-left: 500px;
+    font-family: sans-serif;
+    border-radius: 5px;
+    color:rgb(46, 47, 70);
+}
+.search_found h1{
+    font-size: 24px;
+    padding-top: 10px;
+}
+/* ------------------------------------------------------------------------ */
+.btn-search i{
+    position:relative;
+    margin-top: 8px;
+    margin-left: 260px;
+    color:grey;
+    z-index:1000;
+} 
 .pages{
     margin-right: 70px;
    
@@ -277,8 +312,47 @@ section .card i:hover{
     color:white;
 }
 /* ---------------------------------------------------------------------- */
+/* ----------Pagenation-------------------------------------------------- */
+.previous{
+    position:absolute;
+    padding-left: 15px;
+    padding-top: 5px;
+    margin-top:40px;
+    margin-left: 250px;
+    text-decoration: none;
+    border:1px solid rgb(46, 47, 70);
+    border-radius: 4px;
+    width:90px;
+    height:25px;
+    color:rgb(46, 47, 70);
+    
+}
+.previous:hover{
+    background-color:rgb(46, 47, 70);
+    color:white;
+    border:none;
+}
+.next{
+    position:absolute;
+    padding-left: 30px;
+    padding-top: 5px;
+    margin-top:40px;
+    margin-left: 1025px;
+    text-decoration: none;
+    border:1px solid rgb(46, 47, 70);
+    border-radius: 4px;
+    width:90px;
+    height:25px;
+    color:rgb(46, 47, 70);
+}
+.next:hover{
+    background-color:rgb(46, 47, 70);
+    color:white;
+    border:none;
+}
+/* ---------------------------------------------------------------------- */
 footer .fott1{
-    margin: 100px -8px 0 -8px;
+    margin: 240px -8px 0 -8px;
     width:auto;
     height:330px;
     background-color: rgb(46, 47, 70);

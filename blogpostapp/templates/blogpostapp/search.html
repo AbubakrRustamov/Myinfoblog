@@ -14,23 +14,25 @@
         <nav>
             <div class="logo">Infoblog</div>
             <div class="search">
-                <form action="{% url 'search' %}" method="GET" role="form">
+                <form action="" method="GET" role="form">
                     <input type="text" placeholder="Search ..." name="search" class="search">
                     <span class="btn-search"><i class="fas fa-search"></i></span>
                 </form>
                 
             </div>
             <div class="pages">
-                <a><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'home' %} "style="text-decoration:none; color:#fff"> <i class="fas fa-home"></i> Home</a>
                 <a href="{% url 'create_post' %}" style="text-decoration: none; color:#fff;"><i class="fas fa-plus-circle"></i> New post</a>
-                {% if user.is_authenticated %}
-                <a><i class="fas fa-user"></i> {{user}}</a>
-                {% endif %}
-                <a href="{% url 'login' %}" class="btn" style="text-decoration: none;"><i class="fas fa-sign-in-alt"></i> Log in</a>
+                <a href="{% url 'login' %}" class="btn" style="text-decoration: none;">Log in</a>
             </div>
         </nav>
     </header>
     {% block content %}
+        <div class="search_found">
+            <h1>Search:{{query}}</h1>
+            <p>{{total}} Result(s) found!</p>
+        </div>
+        
         {% for post in posts %}
             <section>
                     <div class="card">
